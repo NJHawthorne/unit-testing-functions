@@ -8,6 +8,12 @@
  */
 function checkData(inputString) {
 	// your code goes here
+	if(typeof inputString === 'string') {
+		return inputString.length === 3
+	}
+	else {
+		throw new Error('Invalid Input');
+	}
 }
 
 /*
@@ -19,6 +25,12 @@ function checkData(inputString) {
  */
 function concatenateArrays(a, b) {
 	// your code goes here
+	if(!Array.isArray(a) || !Array.isArray(b)) {
+		throw new Error('Invalid Input');
+	}
+	if(Array.isArray(a) && Array.isArray(b)) {
+		return a.concat(b);
+	}
 }
 
 /*
@@ -32,6 +44,13 @@ function concatenateArrays(a, b) {
  */
 function fixProperNoun(noun) {
 	// your code goes here
+	if(typeof noun !== 'string') {
+		throw new Error('Invalid Input');
+	} else {
+		var capLetter = noun.substr(0, 1).toUpperCase();
+		var otherLetters = noun.substr(1).toLowerCase();
+		return capLetter.concat(otherLetters);
+	}
 }
 
 /*
@@ -43,7 +62,13 @@ function fixProperNoun(noun) {
  */
 function sortLetters(inputString) {
 	// your code goes here
+	if(typeof inputString !== 'string') {
+		throw new Error('Invalid Input');
+	} else {
+		return inputString.toLowerCase().split('').sort().join('');
+	}
 }
+sortLetters('cba');
 
 /*
  * PROBLEM `absVal`: (normal)
@@ -54,6 +79,15 @@ function sortLetters(inputString) {
  */
 function absVal(integer) {
 	// your code goes here
+	if(integer === isNaN) {
+		throw new Error('Invalid Input');
+	} else {
+		if(integer >= 0) {
+			return integer;
+		} else {
+			return integer - (2 * integer);
+		}
+	}
 }
 
 /*
@@ -63,16 +97,42 @@ function absVal(integer) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+ function myMin (a, b) {
+ 	//your code goes here
+ 	if(a === isNaN || b === isNaN) {
+		throw new Error('Invalid Input');
+	} else {
+		if(a < b) {
+			return a;
+		} else if (b < a) {
+			return b;
+		}
+	}
+ }
 
 /*
  * PROBLEM `myMax`: (normal) - Actual Interview Question
- * Write a function called `myMax` that takes an array of integers ans returns
+ * Write a function called `myMax` that takes an array of integers and returns
  * the largest.
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  *
  * Insane mode: do this without using a for loop.
  */
+
+function myMax(integerList) {
+	if(!Array.isArray(integerList)) {
+		throw new Error('Invalid Input');
+	} else {
+		var maxInteger = 0;
+		for(var i = 0; i < integerList.length; i++) {
+			if(integerList[i] > maxInteger) {
+				maxInteger = integerList[i];
+			}
+		}
+	}
+	return maxInteger;
+}
 
 /*
  * PROBLEM `getMonth`: (normal)
