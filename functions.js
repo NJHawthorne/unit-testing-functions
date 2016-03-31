@@ -181,6 +181,39 @@ function myMax(integerList) {
  * student names and returns an array of randomly selected pairs of students
  * (array of arrays).
  */
+ function studentPairs(studentList) {
+ 	if(!Array.isArray(studentList) || studentList.length <= 1) {
+ 		throw new Error('Invalid Input');
+ 	} else {
+ 		for (var i = 0; i < studentList.length; i++) {
+ 			if(typeof studentList[i] !== 'string') {
+ 				throw new Error('Invalid Input');
+ 			} 
+ 		}
+ 		var studentPairList = [];
+ 		function shuffle(array) {
+		    var j, x, i;
+		    for (i = array.length; i; i -= 1) {
+		        j = Math.floor(Math.random() * i);
+		        x = array[i - 1];
+		        array[i - 1] = array[j];
+		        array[j] = x;
+		    }
+		    return array;
+		}
+		shuffle(studentList);
+ 		while(studentList.length > 1) {
+ 			var studentPair = studentList.splice(0, 2);
+ 			studentPairList.push(studentPair);
+ 		}
+ 		if(studentList.length > 0) {
+ 			var oddManOut = studentList[0];
+ 			studentPairList[0].push(oddManOut);
+ 		}
+
+ 		return studentPairList;
+ 	}
+ }
 
 /*
  * PROBLEM `sumSquares`: (normal)
