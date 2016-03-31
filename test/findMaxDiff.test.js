@@ -14,6 +14,9 @@ describe('findMaxDiff', function() {
 	it('should return a number', function() {
 		expect(functions.findMaxDiff([3, 5, 7])).to.be.a('number');
 	});
+	it('should return 0 when an array with one index is passed through', function() {
+		expect(functions.findMaxDiff([18])).to.equal(0);
+	});
 	it('should return 25 when an array of [5, 10, 15, 20, 25, 30] is passed through', function() {
 		expect(functions.findMaxDiff([5, 10, 15, 20, 25, 30])).to.equal(25);
 	});

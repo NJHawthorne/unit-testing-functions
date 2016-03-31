@@ -266,7 +266,6 @@ function findMaxDiff (range) {
 	}
 }
 
-
 /*
  * PROBLEM `insertDashes`: (normal)
  * Write a function called `insertDashes` that transforms a given sentence into
@@ -275,6 +274,20 @@ function findMaxDiff (range) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
+function insertDashes (words) {
+	if(typeof words !== 'string') {
+		throw new Error('Invalid Input');
+	} else {
+		var individualWords = words.split(' ');
+		for (var i = 0; i < individualWords.length; i++) {
+			var individualWord = individualWords[i].split('');
+			individualWords[i] = individualWord.join('-');
+		}
+		var newSentence = individualWords.join(' ');
+		return newSentence;
+	}
+}
 
 /*
  * PROBLEM `mySubstring`: (normal)
