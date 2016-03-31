@@ -166,6 +166,14 @@ function myMax(integerList) {
  * Create a function called `randomElement` that takes an array of values and
  * returns one randomly selected value from that array.
  */
+ function randomElement(funList) {
+ 	if(!Array.isArray(funList)) {
+		throw new Error('Invalid Input');
+	} else {
+		var randomValue = Math.floor(Math.random()*funList.length);
+		return funList[randomValue];
+	}
+ }
 
 /*
  * PROBLEM `studentPairs`: (normal)
