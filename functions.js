@@ -145,7 +145,22 @@ function myMax(integerList) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
-
+ function getMonth(monthNumber) {
+ 	if(monthNumber === isNaN) {
+ 		throw new Error('Invalid Input');
+ 	} else {
+ 		var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+ 		if (monthNumber > monthList.length) {
+ 			throw new Error('Invalid Input');
+ 		} else {
+ 			for(var i = 0; i < monthList.length; i++) {
+ 				if(monthNumber === i+1) {
+ 					return monthList[i];
+ 				}
+ 			}
+ 		}
+ 	}
+ }
 /*
  * PROBLEM `randomElement`: (normal)
  * Create a function called `randomElement` that takes an array of values and
@@ -154,7 +169,7 @@ function myMax(integerList) {
 
 /*
  * PROBLEM `studentPairs`: (normal)
- * Create a javascript function called `studentPairs` that takes an array of
+ * Create a function called `studentPairs` that takes an array of
  * student names and returns an array of randomly selected pairs of students
  * (array of arrays).
  */
