@@ -6,7 +6,7 @@ describe('getMonth', function(){
 		expect(functions.getMonth).not.to.be.undefined;
 	});
 	it('should throw an error if the argument is not a number', function() {
-		expect(function() {functions.getMonth(isNaN)}).to.throw('Invalid Input');
+		expect(function() {functions.getMonth(NaN)}).to.throw('Invalid Input');
 	});
 	it('should return a string', function() {
 		expect(functions.getMonth(5)).to.be.a('string');

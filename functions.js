@@ -146,7 +146,7 @@ function myMax(integerList) {
  * If the input is invalid throw an 'Invalid Input' exception.
  */
  function getMonth(monthNumber) {
- 	if(monthNumber === isNaN) {
+ 	if(isNaN(monthNumber) || typeof monthNumber !== 'number') {
  		throw new Error('Invalid Input');
  	} else {
  		var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -223,6 +223,18 @@ function myMax(integerList) {
  * If the input is invalid throw an 'Invalid Input' exception.
  */
 
+function sumSquares (values) {
+	if(isNaN(values) || typeof values !== 'number') {
+		throw new Error('Invalid Input');
+	} else {
+		var totalSum = 0;
+		for (var i = 1; i <= values; i++) {
+			totalSum += (i*i);
+		}
+		return totalSum;
+	}
+}
+
 /* 
  * PROBLEM `findMaxDiff`: (normal)
  * Given an array of integers, write a function called `findMaxDiff` that finds
@@ -230,6 +242,30 @@ function myMax(integerList) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
+function findMaxDiff (range) {
+	if(!Array.isArray(range)) {
+		throw new Error('Invalid Input');
+	} else {
+		var highCount = range[0];
+		var lowCount = range[0];
+		for (var i = 0; i < range.length; i++) {
+			if(typeof range[i] !== 'number') {
+				throw new Error('Invalid Input');
+			}
+		}
+		for (var i = 0; i < range.length; i++) {
+			if(range[i] > highCount) {
+				highCount = range[i];
+			}
+			if(range[i] < lowCount) {
+				lowCount = range[i];
+			}
+		}
+		return highCount - lowCount;
+	}
+}
+
 
 /*
  * PROBLEM `insertDashes`: (normal)
