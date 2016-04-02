@@ -68,7 +68,6 @@ function sortLetters(inputString) {
 		return inputString.toLowerCase().split('').sort().join('');
 	}
 }
-sortLetters('cba');
 
 /*
  * PROBLEM `absVal`: (normal)
@@ -300,6 +299,24 @@ function insertDashes (words) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+ function mySubstring (bigWord, startPoint, endPoint) {
+ 	if(typeof bigWord !== 'string' || typeof startPoint !== 'number' || typeof endPoint !== 'number') {
+ 		throw new Error('Invalid Input');
+ 	} else {
+ 		var startChar = bigWord.charAt(startPoint);
+ 		var endChar = bigWord.charAt(endPoint);
+ 		var subString = '';
+ 		for (var i = 0; i < bigWord.length; i++) {
+ 			if(bigWord.charAt([i]) === startChar) {
+ 				for (var j = 0; j < (endPoint - startPoint); j++) {
+ 					var subStringChar = bigWord.charAt([i+j]);
+ 					subString += (subStringChar);
+ 				}
+ 			}
+ 		}
+ 		return subString;
+ 	}
+ }
 
 /*
  * PROBLEM `splitSwap`: (hard)
@@ -312,6 +329,28 @@ function insertDashes (words) {
  * If the input is invalid throw an 'Invalid Input' exception.
  */
 
+function splitSwap (numberList) {
+	if(!Array.isArray(numberList)) {
+		throw new Error('Invalid Input');
+	} else {
+		var halfArrayIndex = Math.floor((numberList.length)/2);
+		var firstHalfArray = numberList.slice(0, halfArrayIndex);
+		var secondHalfArray = numberList.slice(halfArrayIndex);
+		var firstHalfStr = firstHalfArray.join('');
+		var secondHalfStr = secondHalfArray.join('');
+		var numberListStr = '';
+		numberListStr += secondHalfStr + firstHalfStr;
+		var splitArray = [];
+		splitArray = numberListStr.split('');
+		for (var i = 0; i < numberList.length; i++) {
+			if(typeof numberList[i] === 'number') {
+				splitArray[i] = parseInt(splitArray[i]);
+			}
+		}
+		return splitArray;
+	}
+}
+
 /*
  * PROBLEM `smallMultiples`: (hard)
  * For given n and k write a function called `smallMultiples` that returns the
@@ -322,6 +361,8 @@ function insertDashes (words) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
+
 
 /*
  * PROBLEM `rot13`: (hard)
@@ -359,6 +400,27 @@ function insertDashes (words) {
  * If the input is invalid throw an 'Invalid Input' exception.
  */
 
+function findBoth (array1, array2) {
+ 	if(!Array.isArray(array1) || !Array.isArray(array2)) {
+ 		throw new Error('Invalid Input');
+ 	} else {
+ 		var equalArray = [];
+ 		for (var i = 0; i < array1.length; i++) {
+ 			for (var j = 0; j < array2.length; j++) {
+ 				if(array1[i] === array2[j]) {
+ 					if(equalArray.indexOf(array2[j]) > 0) {
+ 						equalArray.slice(equalArray.indexOf(array2[j]), 1);
+ 					} else {
+ 						equalArray.push(array1[i]);
+ 					}
+ 				}
+ 			}
+ 		}
+ 		return equalArray;
+ 	}
+}
+
+
 /*
  * PROBLEM `countBoth`: (hard)
  * Write a function called `countBoth` that takes two arrays of integers a and
@@ -367,6 +429,40 @@ function insertDashes (words) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
+function countBoth (array1, array2) {
+ 	if(!Array.isArray(array1) || !Array.isArray(array2)) {
+ 		throw new Error('Invalid Input');
+ 	} else {
+ 		var equalArray = [];
+ 		var valueCount = 0;
+ 		for (var i = 0; i < array1.length; i++) {
+ 			for (var j = 0; j < array2.length; j++) {
+ 				if(array1[i] === array2[j]) {
+ 					if(equalArray.indexOf(array2[j]) > 0) {
+ 						equalArray.slice(equalArray.indexOf(array2[j]), 1);
+ 					} else {
+ 						equalArray.push(array1[i]);
+ 					}
+ 					
+ 				}
+ 			}
+ 		}
+ 		for (var i = 0; i < equalArray.length; i++) {
+ 			for(var j = 0; j < array1.length; j++) {
+ 				if(equalArray[i] === array1[j]) {
+ 					valueCount++;
+ 				}
+ 			}
+ 			for(var j = 0; j < array2.length; j++) {
+ 				if(equalArray[i] === array2[j]) {
+ 					valueCount++;
+ 				}
+ 			}
+ 		}
+ 		return valueCount;
+ 	}
+}
 
 /*
  * PROBLEM `isDiagonalMatrix`: (nightmare)
