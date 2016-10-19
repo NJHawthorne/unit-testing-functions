@@ -10,8 +10,7 @@ function checkData(inputString) {
 	// your code goes here
 	if(typeof inputString === 'string') {
 		return inputString.length === 3
-	}
-	else {
+	} else {
 		throw new Error('Invalid Input');
 	}
 }
@@ -27,8 +26,7 @@ function concatenateArrays(a, b) {
 	// your code goes here
 	if(!Array.isArray(a) || !Array.isArray(b)) {
 		throw new Error('Invalid Input');
-	}
-	if(Array.isArray(a) && Array.isArray(b)) {
+	} else {
 		return a.concat(b);
 	}
 }
@@ -101,11 +99,7 @@ function absVal(integer) {
  	if(a === isNaN || b === isNaN) {
 		throw new Error('Invalid Input');
 	} else {
-		if(a < b) {
-			return a;
-		} else if (b < a) {
-			return b;
-		}
+		return a < b ? a : b;
 	}
  }
 
@@ -123,14 +117,11 @@ function myMax(integerList) {
 	if(!Array.isArray(integerList)) {
 		throw new Error('Invalid Input');
 	} else {
-		var maxInteger = 0;
-		for(var i = 0; i < integerList.length; i++) {
-			if(integerList[i] > maxInteger) {
-				maxInteger = integerList[i];
-			}
-		}
+		var sorted = integerList.sort(function(a, b) {
+			return a - b;
+		});
+		return sorted[0];
 	}
-	return maxInteger;
 }
 
 /*
@@ -145,19 +136,11 @@ function myMax(integerList) {
  * If the input is invalid throw an 'Invalid Input' exception.
  */
  function getMonth(monthNumber) {
- 	if(isNaN(monthNumber) || typeof monthNumber !== 'number') {
+ 	if(isNaN(monthNumber) || typeof monthNumber !== 'number' || monthNumber > 12) {
  		throw new Error('Invalid Input');
  	} else {
  		var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
- 		if (monthNumber > monthList.length) {
- 			throw new Error('Invalid Input');
- 		} else {
- 			for(var i = 0; i < monthList.length; i++) {
- 				if(monthNumber === i+1) {
- 					return monthList[i];
- 				}
- 			}
- 		}
+ 		return monthList[monthNumber - 1];
  	}
  }
 /*
@@ -246,22 +229,17 @@ function findMaxDiff (range) {
 	if(!Array.isArray(range)) {
 		throw new Error('Invalid Input');
 	} else {
-		var highCount = range[0];
-		var lowCount = range[0];
+		var diff = 0;
 		for (var i = 0; i < range.length; i++) {
 			if(typeof range[i] !== 'number') {
 				throw new Error('Invalid Input');
+			} else {
+				if(range[i] + range[i+1] > diff && i+1 !== range.length) {
+					diff = range[i] + range[i+1];
+				}
 			}
 		}
-		for (var i = 0; i < range.length; i++) {
-			if(range[i] > highCount) {
-				highCount = range[i];
-			}
-			if(range[i] < lowCount) {
-				lowCount = range[i];
-			}
-		}
-		return highCount - lowCount;
+		return diff;
 	}
 }
 
@@ -278,13 +256,9 @@ function insertDashes (words) {
 	if(typeof words !== 'string') {
 		throw new Error('Invalid Input');
 	} else {
-		var individualWords = words.split(' ');
-		for (var i = 0; i < individualWords.length; i++) {
-			var individualWord = individualWords[i].split('');
-			individualWords[i] = individualWord.join('-');
-		}
-		var newSentence = individualWords.join(' ');
-		return newSentence;
+		return words.split(' ').map(function(val, i, arr) {
+			return val.split('').join('-');
+		}).join(' ');
 	}
 }
 
@@ -303,18 +277,7 @@ function insertDashes (words) {
  	if(typeof bigWord !== 'string' || typeof startPoint !== 'number' || typeof endPoint !== 'number') {
  		throw new Error('Invalid Input');
  	} else {
- 		var startChar = bigWord.charAt(startPoint);
- 		var endChar = bigWord.charAt(endPoint);
- 		var subString = '';
- 		for (var i = 0; i < bigWord.length; i++) {
- 			if(bigWord.charAt([i]) === startChar) {
- 				for (var j = 0; j < (endPoint - startPoint); j++) {
- 					var subStringChar = bigWord.charAt([i+j]);
- 					subString += (subStringChar);
- 				}
- 			}
- 		}
- 		return subString;
+ 		return bigWord.slice(startPoint, endPoint);
  	}
  }
 
@@ -336,18 +299,7 @@ function splitSwap (numberList) {
 		var halfArrayIndex = Math.floor((numberList.length)/2);
 		var firstHalfArray = numberList.slice(0, halfArrayIndex);
 		var secondHalfArray = numberList.slice(halfArrayIndex);
-		var firstHalfStr = firstHalfArray.join('');
-		var secondHalfStr = secondHalfArray.join('');
-		var numberListStr = '';
-		numberListStr += secondHalfStr + firstHalfStr;
-		var splitArray = [];
-		splitArray = numberListStr.split('');
-		for (var i = 0; i < numberList.length; i++) {
-			if(typeof numberList[i] === 'number') {
-				splitArray[i] = parseInt(splitArray[i]);
-			}
-		}
-		return splitArray;
+		return secondHalfArray.concat(firstHalfArray);
 	}
 }
 
@@ -404,19 +356,9 @@ function findBoth (array1, array2) {
  	if(!Array.isArray(array1) || !Array.isArray(array2)) {
  		throw new Error('Invalid Input');
  	} else {
- 		var equalArray = [];
- 		for (var i = 0; i < array1.length; i++) {
- 			for (var j = 0; j < array2.length; j++) {
- 				if(array1[i] === array2[j]) {
- 					if(equalArray.indexOf(array2[j]) > 0) {
- 						equalArray.slice(equalArray.indexOf(array2[j]), 1);
- 					} else {
- 						equalArray.push(array1[i]);
- 					}
- 				}
- 			}
- 		}
- 		return equalArray;
+ 		return array1.filter(function(val, i, arr) {
+ 			return array2.indexOf(val);
+ 		});
  	}
 }
 
@@ -434,33 +376,10 @@ function countBoth (array1, array2) {
  	if(!Array.isArray(array1) || !Array.isArray(array2)) {
  		throw new Error('Invalid Input');
  	} else {
- 		var equalArray = [];
- 		var valueCount = 0;
- 		for (var i = 0; i < array1.length; i++) {
- 			for (var j = 0; j < array2.length; j++) {
- 				if(array1[i] === array2[j]) {
- 					if(equalArray.indexOf(array2[j]) > 0) {
- 						equalArray.slice(equalArray.indexOf(array2[j]), 1);
- 					} else {
- 						equalArray.push(array1[i]);
- 					}
- 					
- 				}
- 			}
- 		}
- 		for (var i = 0; i < equalArray.length; i++) {
- 			for(var j = 0; j < array1.length; j++) {
- 				if(equalArray[i] === array1[j]) {
- 					valueCount++;
- 				}
- 			}
- 			for(var j = 0; j < array2.length; j++) {
- 				if(equalArray[i] === array2[j]) {
- 					valueCount++;
- 				}
- 			}
- 		}
- 		return valueCount;
+ 		var uniqueInts = array2.filter(function(val, i, arr) {
+ 			return array1.indexOf(val);
+ 		});
+ 		return array1.concat(uniqueInts).length;
  	}
 }
 
